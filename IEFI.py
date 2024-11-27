@@ -6,8 +6,6 @@ from fpdf import FPDF
 def generar_recibo():
     recibo = ""
     total = 0
-
-    # Agregar datos del cliente al recibo
     nombre_cliente = entry_nombre_cliente.get().strip()
     dato_numerico = entry_dato_numerico.get().strip()
 
@@ -23,7 +21,6 @@ def generar_recibo():
     recibo += f"{'Servicio':<30}{'Cantidad':<10}{'Subtotal':>10}\n"
     recibo += "-" * 50 + "\n"
 
-    # Agregar detalles de la factura
     for x, item in enumerate(variables_basico):
         if item.get() > 0:
             subtotal = int(item.get()) * precios_basico[x]
@@ -51,7 +48,6 @@ def generar_recibo():
     recibo += "-" * 50 + "\n"
     recibo += f'{"Total:":<30}{"":<10}{f"$ {total}":>10}\n'
 
-    # Mostrar el recibo en el widget de texto
     texto_recibo.delete(1.0, tk.END)
     texto_recibo.insert(tk.END, recibo)
 
@@ -66,11 +62,9 @@ def guardar():
         pdf.add_page()
         pdf.set_font("Arial", size=12)
 
-        # Agregar líneas del recibo al PDF
         for line in recibo_texto.split('\n'):
             pdf.cell(0, 10, txt=line, ln=True)
 
-        # Guardar el PDF
         pdf_output_path = "recibo_facturacion.pdf"
         pdf.output(pdf_output_path)
         messagebox.showinfo("Guardado", f"Recibo guardado como {pdf_output_path}")
@@ -113,7 +107,7 @@ def deshabilitar_columnas():
 # Configuración de la ventana principal
 aplicacion = tk.Tk()
 aplicacion.title("Facturación Global Dream")
-aplicacion.config(bg="#edf2f7")  # Fondo general azul claro suave
+aplicacion.config(bg="#edf2f7")
 aplicacion.resizable(False, False)
 
 # Establecer el ícono de la aplicación
